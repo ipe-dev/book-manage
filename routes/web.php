@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/book/list', 'BookController@list');
+
+Route::get('/book/detail', 'BookController@detail');

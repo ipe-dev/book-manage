@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::get('/book/list', 'BookController@list');
 
 Route::get('/book/detail', 'BookController@detail');
+
+Route::get('/book/entry', 'BookController@entry');
+Route::post('/book/create', 'BookController@create');
+
+Route::post('/book/regist/{id?}', 'BookController@regist');

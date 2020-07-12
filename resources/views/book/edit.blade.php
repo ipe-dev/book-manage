@@ -1,7 +1,7 @@
     @extends('layouts.default')
-    @section('title','書籍登録')
+    @section('title','書籍編集')
     @section('content')        
-      <form method="POST" action="/book/create" class="mt-4">
+      <form method="POST" action="/book/edit" class="mt-4">
         {{ csrf_field() }}
         <input type="hidden" name="user_id" value="1">
       <div class="container">
@@ -15,7 +15,7 @@
               <label for="book-title">
                   タイトル
               </label>
-            <input type="text" name="title" class="form-control" id="book-title" value="{{ old('title') }}">
+            <input type="text" name="title" class="form-control" id="book-title" value="{{ $book->title }}">
             </div>
           </div>
           <div class="row justify-content-center">
@@ -24,8 +24,8 @@
                   状態
               </label>
             <select name="status" id="status" >
-              @foreach ($status_codes as $key=>$value)
-                <option value="{{$key}}">{{$value}}</option>                  
+              @foreach ($codes['status_codes'] as $key=>$value)
+                <option value="{{$key}}" @if($key==$book->status) selected @endif>{{$value}}</option>                  
               @endforeach
             </select>
             </div>
@@ -35,7 +35,7 @@
               <label for="memo">
                   メモ
               </label>
-            <textarea rows="5" name="memo" class="form-control" id="memo">{{ old('memo') }}</textarea>
+            <textarea rows="5" name="memo" class="form-control" id="memo">{{ $book->memo }}</textarea>
             </div>
           </div>
           <div class="row justify-content-center">

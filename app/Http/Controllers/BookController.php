@@ -39,17 +39,12 @@ class BookController extends Controller {
     return redirect('/book/list');
   }
 
-  // public function update(Request $request) {
+  public function edit(Request $request) {
 
-  //   $book = new Book();
+    $book = Book::find($request->id);
+    $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
 
-  //   if( $id != null ) {
+    return view('book.edit',['book'=>$book,'codes'=>$codes]);
 
-  //     $book = Book::find($request->id);
-  //   }
-
-  //   $book->fill($request)->save();
-
-  //   return view('book.entry');
-  // }
+  }
 }

@@ -22,4 +22,7 @@ Route::get('/book/detail', 'BookController@detail');
 Route::get('/book/entry', 'BookController@entry');
 Route::post('/book/create', 'BookController@create');
 
+Route::get('/book/edit', 'BookController@edit');
+Route::post('/book/edit', 'BookController@update');
+
 Route::post('/book/regist/{id?}', 'BookController@regist');

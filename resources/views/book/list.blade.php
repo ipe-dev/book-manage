@@ -1,6 +1,7 @@
 @extends('layouts/default')
 @section('title','書籍一覧')
 
+@section('content')    
 <table class="table table-striped" style="width:50%;">
     <thead class="thead-dark">
 <!--                <tr>
@@ -56,3 +57,4 @@
         </tr>
     </tbody>
 </table>
+@endsection

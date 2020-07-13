@@ -4,6 +4,7 @@
       <form method="POST" action="/book/edit" class="mt-4">
         {{ csrf_field() }}
         <input type="hidden" name="user_id" value="1">
+      <input type="hidden" name="id" value="{{ $book->id }}">
       <div class="container">
         <div class="row justify-content-center">
           <h2>
@@ -15,7 +16,7 @@
               <label for="book-title">
                   タイトル
               </label>
-            <input type="text" name="title" class="form-control" id="book-title" value="{{ $book->title }}">
+            <input type="text" name="title" class="form-control" id="book-title" value="{{ old('title',$book->title) }}">
             </div>
           </div>
           <div class="row justify-content-center">
@@ -35,7 +36,7 @@
               <label for="memo">
                   メモ
               </label>
-            <textarea rows="5" name="memo" class="form-control" id="memo">{{ $book->memo }}</textarea>
+            <textarea rows="5" name="memo" class="form-control" id="memo">{{ old('memo',$book->memo) }}</textarea>
             </div>
           </div>
           <div class="row justify-content-center">
@@ -43,7 +44,7 @@
               <label for="start-date">
                   読み始めた日
               </label>
-            <input type="date" rows="5" name="read_start_date" class="form-control" id="start-date" value="{{ old('read_start_date') }}">
+            <input type="date" rows="5" name="read_start_date" class="form-control" id="start-date" value="{{ old('read_start_date',$book->read_start_date) }}">
             </div>
           </div>
           <div class="row justify-content-center">
@@ -51,7 +52,7 @@
               <label for="end-date">
                   読み終わった日
               </label>
-            <input type="date" rows="5" name="read_end_date" class="form-control" id="end-date" value="{{ old('read_start_date') }}">
+            <input type="date" rows="5" name="read_end_date" class="form-control" id="end-date" value="{{ old('read_end_date', $book->read_end_date ) }}">
             </div>
           </div>
           <div class="row justify-content-center">

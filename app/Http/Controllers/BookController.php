@@ -10,8 +10,9 @@ class BookController extends Controller {
 
   public function list() {
 
-    $books = Book::all();
-
+    //$books = Book::all();
+    //$books = Book::orderBy('created_at','desc')->get();
+    $books = Book::latest()->get();
     return view('book.list',['books'=>$books]);
   }
 
@@ -39,12 +40,32 @@ class BookController extends Controller {
     return redirect('/book/list');
   }
 
-  public function edit(Request $request) {
+  // public function edit(Request $request) {
 
-    $book = Book::find($request->id);
+  //   $book = Book::find($request->id);
+  //   $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
+
+  //   return view('book.edit',['book'=>$book,'codes'=>$codes]);
+
+  // }
+  public function edit(Book $book) {
+
+    //$book = Book::find($request->id);
     $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
 
     return view('book.edit',['book'=>$book,'codes'=>$codes]);
+
+  }
+
+  public function update(Request $request) {
+
+    $this->validate($request, Book::$rules );
+    $params = $request->all();
+    $book = Book::find($params["id"]);
+    unset($params['_token']);
+    $book->fill($params)->save();
+    
+    return redirect('/book/list');
 
   }
 }

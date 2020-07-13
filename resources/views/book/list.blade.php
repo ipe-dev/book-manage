@@ -10,11 +10,14 @@
             </th>
         </tr>-->
         <tr>
-            <th scopec="col">
-                日付
-            </th>
             <th scope="col">
                 タイトル
+            </th>
+            <th scopec="col">
+                読み始めた日
+            </th>
+            <th scopec="col">
+                読み終わった日
             </th>
             <th scope="col">
                 編集
@@ -22,39 +25,29 @@
         </tr>
     </thead>
     <tbody>
+        @forelse ($books as $book)
         <tr>
             <td>
-                2020/02/10
+                {{ $book->title }}
             </td>
             <td>
-                <a href="/book/detail/1">ファストアンドスロー</a>
+                {{ $book->read_start_date }}
             </td>
             <td>
-                編集
+                {{ $book->read_end_date }}
+            </td>
+            <td>
+                <a href="{{ action('BookController@edit', $book) }}">編集</a>
+                
             </td>
         </tr>
+        @empty
         <tr>
-            <td>
-                2020/02/10
+            <td colspan="4">
+                書籍情報はありません。
             </td>
-            <td>
-                <a href="/book/detail/2">罪と罰</a>
-            </td>
-            <td>
-                編集
-            </td>
-        </tr>
-        <tr>
-            <td>
-                2020/02/10
-            </td>
-            <td>
-                <a href="/book/detail/2">ノルウェイの森</a>
-            </td>
-            <td>
-                編集
-            </td>
-        </tr>
+        </tr>            
+        @endforelse    
     </tbody>
 </table>
 @endsection

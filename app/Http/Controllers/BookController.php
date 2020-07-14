@@ -40,6 +40,14 @@ class BookController extends Controller {
     return redirect('/book/list');
   }
 
+  public function destroy( Book $book ) {
+
+    $book->delete();
+
+    return redirect( '/book/list' );
+
+  }
+
   // public function edit(Request $request) {
 
   //   $book = Book::find($request->id);
@@ -57,13 +65,13 @@ class BookController extends Controller {
 
   }
 
-  public function update(Request $request) {
+  public function update(Request $request, Book $book) {
 
     $this->validate($request, Book::$rules );
-    $params = $request->all();
-    $book = Book::find($params["id"]);
-    unset($params['_token']);
-    $book->fill($params)->save();
+    $form = $request->all();
+    unset($form['_token']);
+    $book->fill($form)->save();
+    $book->save();
     
     return redirect('/book/list');
 

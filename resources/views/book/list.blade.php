@@ -4,11 +4,6 @@
 @section('content')    
 <table class="table table-striped" style="width:50%;">
     <thead class="thead-dark">
-<!--                <tr>
-            <th colspan="3" class="col">
-                <a href="/book/entry">新規登録</a>
-            </th>
-        </tr>-->
         <tr>
             <th scope="col">
                 タイトル
@@ -21,6 +16,9 @@
             </th>
             <th scope="col">
                 編集
+            </th>
+            <th scope="col">
+                削除
             </th>
         </tr>
     </thead>
@@ -37,8 +35,14 @@
                 {{ $book->read_end_date }}
             </td>
             <td>
-                <a href="{{ action('BookController@edit', $book) }}">編集</a>
-                
+                <a href="{{ action('BookController@edit', $book) }}" >編集</a>
+            </td>
+            <td>
+                <a href="#" data-id="{{ $book->id }}" class="del">削除</a>
+                <form action="{{ url('/book', $book->id) }}" id="del-{{ $book->id }}">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                </form>
             </td>
         </tr>
         @empty

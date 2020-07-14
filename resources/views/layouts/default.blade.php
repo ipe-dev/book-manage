@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>@yield('title')</title>
-        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="/js/jquery-3.4.1.js"></script>
         <!-- BootstrapのCSS読み込み -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <!-- jQuery読み込み -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> --}}
         <!-- BootstrapのJS読み込み -->
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/main.js"></script>
     </head>
     <body>
         <header>

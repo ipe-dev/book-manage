@@ -11,6 +11,11 @@ class Book extends Model
     //
     public static $rules = array(
 
-        'title' => 'required'
+        'title' => 'required|min:3'
     );
+
+    public function message() {
+
+        return [ 'title.required' => 'タイトルを入力してください' ];
+    }
 }

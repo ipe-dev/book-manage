@@ -23,6 +23,6 @@ Route::get('/book/entry', 'BookController@entry');
 Route::post('/book/create', 'BookController@create');
 
 Route::get('/book/edit/{book}', 'BookController@edit');
-Route::post('/book/edit', 'BookController@update');
+Route::patch('/book/{book}', 'BookController@update');
 
-Route::post('/book/regist/{id?}', 'BookController@regist');
+Route::delete('/book/{book}', 'BookController@destroy');

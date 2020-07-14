@@ -1,10 +1,10 @@
     @extends('layouts.default')
     @section('title','書籍編集')
     @section('content')        
-      <form method="POST" action="/book/edit" class="mt-4">
+      <form method="POST" action="{{ url('/book', $book->id) }}" class="mt-4">
         {{ csrf_field() }}
+        {{ method_field('patch') }}
         <input type="hidden" name="user_id" value="1">
-      <input type="hidden" name="id" value="{{ $book->id }}">
       <div class="container">
         <div class="row justify-content-center">
           <h2>
@@ -17,6 +17,9 @@
                   タイトル
               </label>
             <input type="text" name="title" class="form-control" id="book-title" value="{{ old('title',$book->title) }}">
+            @if( $errors->has('title') )
+            <p>{{ $errors->first('title') }}</p>
+            @endif
             </div>
           </div>
           <div class="row justify-content-center">

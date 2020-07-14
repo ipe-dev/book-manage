@@ -17,6 +17,9 @@
               </label>
             <input type="text" name="title" class="form-control" id="book-title" value="{{ old('title') }}">
             </div>
+            @if( $errors->has('title') )
+            <p>{{ $errors->first('title') }}</p>
+            @endif
           </div>
           <div class="row justify-content-center">
             <div class="form-group col-md-6">

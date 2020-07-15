@@ -8,7 +8,7 @@ use App\Book;
 class BookController extends Controller {
     //
 
-  public function list() {
+  public function list( Request $request ) {
 
     //$books = Book::all();
     //$books = Book::orderBy('created_at','desc')->get();
@@ -16,9 +16,12 @@ class BookController extends Controller {
     return view('book.list',['books'=>$books]);
   }
 
-  public function detail() {
+  public function detail( Book $book ) {
 
+    $status_codes = ['1'=>'未読','2'=>'読了'];
+    $book->disp_status = $status_codes[$book->status];
 
+    return view('book.detail',['book'=>$book]);
   }
 
   public function entry() {
@@ -48,17 +51,8 @@ class BookController extends Controller {
 
   }
 
-  // public function edit(Request $request) {
-
-  //   $book = Book::find($request->id);
-  //   $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
-
-  //   return view('book.edit',['book'=>$book,'codes'=>$codes]);
-
-  // }
   public function edit(Book $book) {
 
-    //$book = Book::find($request->id);
     $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
 
     return view('book.edit',['book'=>$book,'codes'=>$codes]);

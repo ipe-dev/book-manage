@@ -15,7 +15,7 @@
     <body>
         <header>
             <nav class="navbar navbar-expand navbar-light">
-                <a href="" class="navbar-brand">Logo</a>
+                <a href="" class="navbar-brand">BOOK MANAGE</a>
                 <ul class="navbar-nav">
                     <li class="navbar-item">
                     <a class="nav-link" href="{{ url('/book/list') }}">一覧</a>

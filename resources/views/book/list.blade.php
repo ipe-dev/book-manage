@@ -2,6 +2,7 @@
 @section('title','書籍一覧')
 
 @section('content')
+<h1>@yield('title')</h1>
 <form action="{{ url('/book/list') }}" method="GET">
     <table class="table">
         <tr>
@@ -10,6 +11,32 @@
             </th>    
             <td>
                 <input type="text" name="title" value="{{ old('title') }}">
+            </td>    
+        </tr>
+        <tr>
+            <th>
+                メモ
+            </th>    
+            <td>
+                <input type="text" name="memo" value="{{ old('memo') }}">
+            </td>    
+        </tr>
+        <tr>
+            <th>
+                読み始めた日
+            </th>    
+            <td>
+                <input type="date" name="read_start_date_from" value="{{ old('read_start_date_from') }}"> -
+                <input type="date" name="read_start_date_to" value="{{ old('read_start_date_to') }}">
+            </td>    
+        </tr>
+        <tr>
+            <th>
+                読み終わった日
+            </th>    
+            <td>
+                <input type="date" name="read_end_date_from" value="{{ old('read_end_date_from') }}"> -
+                <input type="date" name="read_end_date_to" value="{{ old('read_end_date_to') }}">
             </td>    
         </tr>
     </table>
@@ -60,7 +87,7 @@
         </tr>
         @empty
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 書籍情報はありません。
             </td>
         </tr>            

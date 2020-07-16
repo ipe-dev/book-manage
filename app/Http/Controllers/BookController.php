@@ -12,8 +12,54 @@ class BookController extends Controller {
 
     //$books = Book::all();
     //$books = Book::orderBy('created_at','desc')->get();
-    $books = Book::latest()->get();
-    return view('book.list',['books'=>$books]);
+
+    $query = Book::query();
+
+    //title
+    if( !empty($request->input('title')) ) {
+
+      $title_list = explode(' ',$request->input('title'));
+      if( $title_list != null ) {
+        
+        foreach( $title_list as $title ) {
+
+          $query->orWhere('title','like','%'.$title.'%');
+        }
+      }
+    }
+    //memo
+    if( !empty($request->input('memo')) ) {
+
+      $query->where('memo','like','%'.$request->input('memo').'%');
+
+    }
+    //read_start_date
+    if( !empty($request->input('read_start_date_from')) ) {
+
+      $query->where('read_start_date', '>=', $request->input('read_start_date_from'));
+
+    }
+    if( !empty($request->input('read_start_date_to')) ) {
+
+      $query->where('read_start_date', '<=', $request->input('read_start_date_to'));
+
+    }
+    //read_end_date
+    if( !empty($request->input('read_end_date_from')) ) {
+
+      $query->where('read_end_date', '>=', $request->input('read_end_date_from'));
+
+    }
+
+    if( !empty($request->input('read_end_date_to')) ) {
+
+      $query->where('read_end_date', '<=', $request->input('read_end_date_to'));
+
+    }
+
+    $books = $query->orderBy('created_at','desc')->paginate(10);
+
+    return view('book.list')->with('books',$books);
   }
 
   public function detail( Book $book ) {

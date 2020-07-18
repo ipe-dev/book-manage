@@ -63,6 +63,9 @@
                   ラベル
               </label>
             <input type="text" rows="5" name="name" class="form-control" id="end-date" value="{{ old('name') }}">
+            <div id="app">
+              @{{ name }}
+            </div>
             </div>
           </div>
           <div class="row justify-content-center">

@@ -1,5 +1,7 @@
 $(function(){
 
+    'use strict';
+
     $('.del').click(function() {
 
         if( confirm('削除してもよろしいですか？') ) {

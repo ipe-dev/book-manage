@@ -83,8 +83,12 @@ class BookController extends Controller {
     $this->validate($request, Book::$rules );
     $book = new Book;
     $form = $request->all();
+    $label_name = $form['name'];
     unset($form['_token']);
+    unset($form['name']);
     $book->fill($form)->save();
+
+    $book->labels()->sync(['name'=>$label_name],[]);
 
     return redirect('/book/list');
   }

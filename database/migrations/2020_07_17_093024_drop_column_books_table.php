@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddVotesToBooksTable extends Migration
+class DropColumnBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,7 @@ class AddVotesToBooksTable extends Migration
     {
         Schema::table('books', function (Blueprint $table) {
             //
-            $table->text('memo')->nullable();
-            $table->string('status')->nullable();
-            $table->date('read_start_date')->nullable();
-            $table->date('read_end_date')->nullable();
+            $table->dropColumn('label_id');
         });
     }
 

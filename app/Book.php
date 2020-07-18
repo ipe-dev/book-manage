@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Label;
 
 class Book extends Model
 {
@@ -17,5 +18,11 @@ class Book extends Model
     public function message() {
 
         return [ 'title.required' => 'タイトルを入力してください' ];
+    }
+
+    public function labels() {
+
+        return $this->belongsToMany(Label::class,'book_label','book_id','label_id');
+
     }
 }

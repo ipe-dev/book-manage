@@ -58,6 +58,14 @@
             </div>
           </div>
           <div class="row justify-content-center">
+            <div class="form-group col-md-6">
+              <label for="end-date">
+                  ラベル
+              </label>
+            <input type="text" rows="5" name="name" class="form-control" id="end-date" value="{{ old('name') }}">
+            </div>
+          </div>
+          <div class="row justify-content-center">
             <input type="submit" class="btn btn-primary" value="登録">
           </div>
       </div>

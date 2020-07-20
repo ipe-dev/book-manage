@@ -49753,7 +49753,13 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app',
   data: {
-    name: 'aaa'
+    label_name: '',
+    input_name: ''
+  },
+  methods: {
+    addLabel: function addLabel() {
+      this.label_name.push(this.input_name);
+    }
   }
 });
 

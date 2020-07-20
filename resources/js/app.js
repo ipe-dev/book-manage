@@ -30,6 +30,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     data: {
-        name: 'aaa'
+        input_label: '',
+        labels: [
+            "a",
+            "b"
+        ]
+
+    },
+    methods: {
+        addLabel: function() {
+            
+            this.label.push(this.input_label);
+        }
     }
 });

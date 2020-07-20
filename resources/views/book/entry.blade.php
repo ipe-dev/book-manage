@@ -1,6 +1,7 @@
     @extends('layouts.default')
     @section('title','書籍登録')
     @section('content')        
+    <div id="app">
       <form method="POST" action="/book/create" class="mt-4">
         {{ csrf_field() }}
         <input type="hidden" name="user_id" value="1">
@@ -62,10 +63,7 @@
               <label for="end-date">
                   ラベル
               </label>
-            <input type="text" rows="5" name="name" class="form-control" id="end-date" value="{{ old('name') }}">
-            <div id="app">
-              @{{ name }}
-            </div>
+                <input type="text" name="name">
             </div>
           </div>
           <div class="row justify-content-center">
@@ -73,5 +71,6 @@
           </div>
       </div>
     </form>
+    </div>
     @endsection
 

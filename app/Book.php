@@ -22,7 +22,7 @@ class Book extends Model
 
     public function labels() {
 
-        return $this->belongsToMany(Label::class,'book_label','book_id','label_id');
+        return $this->belongsToMany('App\Label','book_label','book_id','label_id');
 
     }
 }

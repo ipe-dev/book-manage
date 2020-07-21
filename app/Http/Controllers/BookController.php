@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use App\Label;
 
 class BookController extends Controller {
     //
@@ -86,9 +87,33 @@ class BookController extends Controller {
     $label_name = $form['name'];
     unset($form['_token']);
     unset($form['name']);
+    // book登録
     $book->fill($form)->save();
 
-    $book->labels()->sync(['name'=>$label_name],[]);
+    // ラベル登録
+    //同じラベルがあるか
+    $label_name_list = explode(' ',$label_name);
+    $label = Label::whereIn('name',$label_name_list)->get();
+
+    foreach( $label_name_list as $name ) {
+
+      $label = Label::where('name',$name)->first();
+      // すでにラベルがあるとき
+      if( $label != null ) {
+  
+        //$book->labels()->sync(['name'=>$label_name],[]);
+        $book->labels()->attach($label->id);
+
+      // 新しいラベルのとき
+      } else {
+  
+        $label = new Label();
+        $label->name = $name;
+                
+        $label->save();
+        $book->labels()->attach($label->id);  
+      }
+    }
 
     return redirect('/book/list');
   }

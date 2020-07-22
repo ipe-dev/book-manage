@@ -60,10 +60,10 @@
           </div>
           <div class="row justify-content-center">
             <div class="form-group col-md-6">
-              <label for="end-date">
+              <label for="label">
                   ラベル
               </label>
-            <input type="text" rows="5" name="name" class="form-control" id="end-date" value="{{ old('name') }}">
+                <input id="label" type="text" name="name" value="{{ old('name',$label_name) }}">
             </div>
           </div>
           <div class="row justify-content-center">

@@ -9,10 +9,8 @@ use App\Label;
 class BookController extends Controller {
     //
 
+  // 一覧画面
   public function list( Request $request ) {
-
-    //$books = Book::all();
-    //$books = Book::orderBy('created_at','desc')->get();
 
     $query = Book::query();
 
@@ -79,6 +77,7 @@ class BookController extends Controller {
     return view('book.entry',$dto);
   }
 
+  // 登録画面
   public function create(Request $request) {
 
     $this->validate($request, Book::$rules );
@@ -91,28 +90,12 @@ class BookController extends Controller {
     $book->fill($form)->save();
 
     // ラベル登録
-    //同じラベルがあるか
+    // 同じラベルがあるか
     $label_name_list = explode(' ',$label_name);
-    $label = Label::whereIn('name',$label_name_list)->get();
 
     foreach( $label_name_list as $name ) {
 
-      $label = Label::where('name',$name)->first();
-      // すでにラベルがあるとき
-      if( $label != null ) {
-  
-        //$book->labels()->sync(['name'=>$label_name],[]);
-        $book->labels()->attach($label->id);
-
-      // 新しいラベルのとき
-      } else {
-  
-        $label = new Label();
-        $label->name = $name;
-                
-        $label->save();
-        $book->labels()->attach($label->id);  
-      }
+      Label::save_labels_and_pivot( $name, $book );
     }
 
     return redirect('/book/list');
@@ -126,22 +109,43 @@ class BookController extends Controller {
 
   }
 
+  // 編集画面
   public function edit(Book $book) {
 
     $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
 
-    return view('book.edit',['book'=>$book,'codes'=>$codes]);
+    $label_name_list = null;
+    foreach ( $book->labels as $label ) {
+
+      $label_name_list[] = $label->name;
+    }
+
+    $label_name = implode(' ',$label_name_list);
+
+    return view('book.edit',['book'=>$book,'codes'=>$codes, 'label_name'=>$label_name]);
 
   }
 
+  // 編集実行
   public function update(Request $request, Book $book) {
 
     $this->validate($request, Book::$rules );
     $form = $request->all();
+    $label_name = $form['name'];
+    unset($form['name']);
     unset($form['_token']);
     $book->fill($form)->save();
     $book->save();
     
+    // ラベル登録
+    // 同じラベルがあるか
+    $label_name_list = explode(' ',$label_name);
+
+    foreach( $label_name_list as $name ) {
+
+      Label::save_labels_and_pivot( $name, $book );
+    }
+
     return redirect('/book/list');
 
   }

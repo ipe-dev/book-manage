@@ -60,10 +60,10 @@
           </div>
           <div class="row justify-content-center">
             <div class="form-group col-md-6">
-              <label for="end-date">
+              <label for="label">
                   ラベル
               </label>
-                <input type="text" name="name">
+                <input id="label" type="text" name="name">
             </div>
           </div>
           <div class="row justify-content-center">

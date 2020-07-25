@@ -13,6 +13,7 @@ class BookController extends Controller {
   public function list( Request $request ) {
 
     $query = Book::query();
+    $sort = $request->sort;
 
     //title
     if( !empty($request->input('title')) ) {
@@ -56,7 +57,7 @@ class BookController extends Controller {
 
     }
 
-    $books = $query->orderBy('created_at','desc')->paginate(10);
+    $books = $query->orderBy('created_at','desc')->paginate(2);
 
     return view('book.list')->with('books',$books);
   }
@@ -137,6 +138,19 @@ class BookController extends Controller {
     $book->fill($form)->save();
     $book->save();
     
+
+    // リレーションテーブルからデータを削除
+    $labels = $book->labels;
+    if( $labels != null ) {
+
+      foreach( $labels as $label ) {
+
+        $pivot = $label->pivot;
+
+        $pivot->delete();
+      }
+    }
+
     // ラベル登録
     // 同じラベルがあるか
     $label_name_list = explode(' ',$label_name);

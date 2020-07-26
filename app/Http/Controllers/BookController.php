@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use App\Label;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller {
     //
 
   // 一覧画面
   public function list( Request $request ) {
+
+    $user = Auth::user();
 
     $query = Book::query();
     $sort = $request->sort;
@@ -59,7 +62,7 @@ class BookController extends Controller {
 
     $books = $query->orderBy('created_at','desc')->paginate(2);
 
-    return view('book.list')->with('books',$books);
+    return view('book.list')->with('books',$books)->with("user",$user);
   }
 
   public function detail( Book $book ) {
@@ -106,6 +109,17 @@ class BookController extends Controller {
 
     $book->delete();
 
+    // リレーションテーブルのデータも削除する
+    $labels = $book->labels;
+    if( $labels != null ) {
+
+      foreach( $labels as $label ) {
+
+        $pivot = $label->pivot;
+        $pivot->delete();
+      }
+    }
+
     return redirect( '/book/list' );
 
   }
@@ -116,9 +130,12 @@ class BookController extends Controller {
     $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
 
     $label_name_list = null;
-    foreach ( $book->labels as $label ) {
+    if( $book->labels != null ) {
 
-      $label_name_list[] = $label->name;
+      foreach ( $book->labels as $label ) {
+
+        $label_name_list[] = $label->name;
+      }
     }
 
     $label_name = implode(' ',$label_name_list);

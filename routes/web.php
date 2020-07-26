@@ -26,3 +26,7 @@ Route::get('/book/edit/{book}', 'BookController@edit');
 Route::patch('/book/{book}', 'BookController@update');
 
 Route::delete('/book/{book}', 'BookController@destroy');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

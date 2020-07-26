@@ -3,6 +3,7 @@
 
 @section('content')
 <h1>@yield('title')</h1>
+
 <form action="{{ url('/book/list') }}" method="GET">
     <table class="table">
         <tr>

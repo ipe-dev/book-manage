@@ -2,6 +2,11 @@
 @section('title','書籍一覧')
 
 @section('content')
+@if(Auth::check())
+<p>User: {{$user->name . '(' . $user->email . ')'}}</p>
+@else
+<p>ログインしていません( <a href="/login">ログイン</a> | <a href="/register">登録</a> )</p>
+@endif
 <h1>@yield('title')</h1>
 
 <form action="{{ url('/book/list') }}" method="GET">

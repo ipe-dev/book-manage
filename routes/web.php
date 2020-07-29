@@ -15,17 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/book/list', 'BookController@list');
+Route::get('/book/list', 'BookController@list')->middleware('auth');
 
-Route::get('/book/detail/{book}', 'BookController@detail');
+Route::get('/book/detail/{book}', 'BookController@detail')->middleware('auth');
 
-Route::get('/book/entry', 'BookController@entry');
+Route::get('/book/entry', 'BookController@entry')->middleware('auth');
 Route::post('/book/create', 'BookController@create');
 
-Route::get('/book/edit/{book}', 'BookController@edit');
+Route::get('/book/edit/{book}', 'BookController@edit')->middleware('auth');
 Route::patch('/book/{book}', 'BookController@update');
 
 Route::delete('/book/{book}', 'BookController@destroy');
+
+Route::get('/book/login', 'BookController@getLogin');
+Route::post('/book/login', 'BookController@postLogin');
 
 Auth::routes();
 

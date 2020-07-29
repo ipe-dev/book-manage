@@ -180,4 +180,17 @@ class BookController extends Controller {
     return redirect('/book/list');
 
   }
+
+  public function getLogin(Request $request) {
+    
+    $message = 'ログインしてください';
+
+    return view('book.login')->with('message',$message);
+
+  }
+
+  public function postLogin( Request $request ) {
+
+    
+  }
 }

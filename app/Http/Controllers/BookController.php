@@ -75,7 +75,7 @@ class BookController extends Controller {
 
   public function entry() {
 
-    $dto['status_codes'] = ['1'=>'未読','2'=>'読了'];
+    $dto['status_codes'] = config('code.status');
 
 
     return view('book.entry',$dto);
@@ -127,7 +127,7 @@ class BookController extends Controller {
   // 編集画面
   public function edit(Book $book) {
 
-    $codes['status_codes'] = ['1'=>'未読','2'=>'読了'];
+    $codes['status_codes'] = config('code.status');
 
     $label_name_list = null;
     if( $book->labels != null ) {

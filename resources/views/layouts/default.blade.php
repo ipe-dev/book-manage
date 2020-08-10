@@ -21,16 +21,30 @@
                     <li class="navbar-item">
                     <a class="nav-link" href="{{ url('/book/list') }}">一覧</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav">
+               
+               
                     <li class="navbar-item">
                     <a class="nav-link" href="{{ url('/book/entry') }}">書籍登録</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="navbar-item">
-                    <a class="nav-link" href="{{ url('/') }}"></a>
+               
+                    @if(Auth::check())
+                    <li>
+                        <a class="nav-link" href="#" onclick="document.getElementById('ActionForm').submit();">ログアウト</a>
+                        <form id="ActionForm" action="{{ url('/logout') }}" method="POST">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
+                    @else
+                    <li>
+                        <a class="nav-link" href="{{ url('/login') }}">ログイン</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ url('/book/list') }}">登録</a>
+                    </li>
+                    @endif               
+                    {{-- <li class="navbar-item">
+                    <a class="nav-link" href="{{ url('/') }}">HOME</a>
+                    </li> --}}
                 </ul>
             </nav>    
         </header>

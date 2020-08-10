@@ -18,6 +18,9 @@ class BookController extends Controller {
     $query = Book::query();
     $sort = $request->sort;
 
+    //user_id
+    $query->where('user_id',$user->id);
+
     //title
     if( !empty($request->input('title')) ) {
 
@@ -73,15 +76,19 @@ class BookController extends Controller {
     return view('book.detail',['book'=>$book]);
   }
 
+  // 登録画面
   public function entry() {
 
-    $dto['status_codes'] = config('code.status');
+    $user = Auth::user();
 
+    $dto["user_id"] = $user->id;
+
+    $dto['status_codes'] = config('code.status');
 
     return view('book.entry',$dto);
   }
 
-  // 登録画面
+  // 登録実行
   public function create(Request $request) {
 
     $this->validate($request, Book::$rules );
@@ -129,6 +136,9 @@ class BookController extends Controller {
 
     $codes['status_codes'] = config('code.status');
 
+    $user = Auth::user();
+    $user_id = $user->id;
+
     $label_name_list = null;
     if( $book->labels != null ) {
 
@@ -140,7 +150,7 @@ class BookController extends Controller {
 
     $label_name = implode(' ',$label_name_list);
 
-    return view('book.edit',['book'=>$book,'codes'=>$codes, 'label_name'=>$label_name]);
+    return view('book.edit',['book'=>$book,'codes'=>$codes, 'label_name'=>$label_name,'user_id'=>$user_id]);
 
   }
 

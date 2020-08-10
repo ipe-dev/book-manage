@@ -4,7 +4,7 @@
     <div id="app">
       <form method="POST" action="/book/create" class="mt-4">
         {{ csrf_field() }}
-        <input type="hidden" name="user_id" value="1">
+        <input type="hidden" name="user_id" value="{{$user_id}}">
       <div class="container">
         <div class="row justify-content-center">
           <h2>

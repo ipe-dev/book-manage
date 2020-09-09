@@ -10,8 +10,11 @@
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> --}}
         <!-- BootstrapのJS読み込み -->
         <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/main.js"></script> 
+        <script src="/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
         <header>
@@ -49,6 +52,7 @@
             </nav>    
         </header>
         @yield('content')
-        <script src=" {{ mix('/js/app.js') }} "></script>
+        {{-- <script src=" {{ mix('/js/app.js') }} "></script> --}}
+        <script src="{{ mix('js/app.js') }}" defer></script>
     </body>
 </html>

@@ -49753,12 +49753,23 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app',
   data: {
-    label_name: '',
-    input_name: ''
+    search: '',
+    search_result: '',
+    url: '/book/ajax'
   },
-  methods: {
-    addLabel: function addLabel() {
-      this.label_name.push(this.input_name);
+  watch: {
+    search: function search(value) {
+      axios({
+        method: 'GET',
+        url: this.url,
+        params: {
+          'word': value
+        }
+      }).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -49897,8 +49908,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/izakishohei/MyVagrant/workspace/laravel_app/book_manage/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/izakishohei/MyVagrant/workspace/laravel_app/book_manage/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/izakishohei/laravel_docker/book_manage/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/izakishohei/laravel_docker/book_manage/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

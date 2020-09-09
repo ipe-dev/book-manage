@@ -30,17 +30,29 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     data: {
-        input_label: '',
-        labels: [
-            "a",
-            "b"
-        ]
-
+        search: '',
+        search_result: '',
+        url: '/book/ajax'
     },
-    methods: {
-        addLabel: function() {
+    watch: {
+        search: function(value) {
+
+            axios({
+                method: 'GET',
+                url: this.url,
+                params: {'word':value} 
+            }).then(function(res) {
+
+                
+                console.log(res.data)
+
+                
             
-            this.label.push(this.input_label);
-        }
+
+            }).catch(function(error){
+
+                console.log(error)
+            })
+        }           
     }
 });

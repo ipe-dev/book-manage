@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use App\Jobs\MyJob;
 use App\Label;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,50 +23,69 @@ class BookController extends Controller {
     $query->where('user_id',$user->id);
 
     //title
-    if( !empty($request->input('title')) ) {
+    // if( !empty($request->input('title')) ) {
 
-      $title_list = explode(' ',$request->input('title'));
-      if( $title_list != null ) {
+    //   $title_list = explode(' ',$request->input('title'));
+    //   if( $title_list != null ) {
         
-        foreach( $title_list as $title ) {
+    //     foreach( $title_list as $title ) {
 
-          $query->orWhere('title','like','%'.$title.'%');
-        }
-      }
-    }
-    //memo
-    if( !empty($request->input('memo')) ) {
+    //       $query->orWhere('title','like','%'.$title.'%');
+    //     }
+    //   }
+    // }
+    // //memo
+    // if( !empty($request->input('memo')) ) {
 
-      $query->where('memo','like','%'.$request->input('memo').'%');
+    //   $query->where('memo','like','%'.$request->input('memo').'%');
 
-    }
-    //read_start_date
-    if( !empty($request->input('read_start_date_from')) ) {
+    // }
+    // //read_start_date
+    // if( !empty($request->input('read_start_date_from')) ) {
 
-      $query->where('read_start_date', '>=', $request->input('read_start_date_from'));
+    //   $query->where('read_start_date', '>=', $request->input('read_start_date_from'));
 
-    }
-    if( !empty($request->input('read_start_date_to')) ) {
+    // }
+    // if( !empty($request->input('read_start_date_to')) ) {
 
-      $query->where('read_start_date', '<=', $request->input('read_start_date_to'));
+    //   $query->where('read_start_date', '<=', $request->input('read_start_date_to'));
 
-    }
-    //read_end_date
-    if( !empty($request->input('read_end_date_from')) ) {
+    // }
+    // //read_end_date
+    // if( !empty($request->input('read_end_date_from')) ) {
 
-      $query->where('read_end_date', '>=', $request->input('read_end_date_from'));
+    //   $query->where('read_end_date', '>=', $request->input('read_end_date_from'));
 
-    }
+    // }
 
-    if( !empty($request->input('read_end_date_to')) ) {
+    // if( !empty($request->input('read_end_date_to')) ) {
 
-      $query->where('read_end_date', '<=', $request->input('read_end_date_to'));
+    //   $query->where('read_end_date', '<=', $request->input('read_end_date_to'));
 
-    }
+    // }
 
-    $books = $query->orderBy('created_at','desc')->paginate(2);
+//    $books = $query->orderBy('created_at','desc')->paginate(2);
+    $books = $query->orderBy('created_at','desc')->get();
 
     return view('book.list')->with('books',$books)->with("user",$user);
+  }
+
+  public function ajax( Request $request ) {
+
+    $Word = $request->query('word');
+
+    $user = Auth::user();
+    $query = Book::query();
+    $query->where('user_id',$user->id);
+    $query->where(function($query) use($Word){
+
+      $query->orWhere('title','like','%' . $Word . '%');
+      $query->orWhere('memo','like','%' . $Word . '%');
+    });
+
+    $books = $query->orderBy('created_at','desc')->get();
+    return response()->json($books);
+
   }
 
   public function detail( Book $book ) {

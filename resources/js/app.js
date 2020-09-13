@@ -30,17 +30,64 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     data: {
-        input_label: '',
-        labels: [
-            "a",
-            "b"
-        ]
+        search: '',
+        search_result: [],
+        url: '/book/ajax',
+        is_modal_open: false
+    },
+    mounted : function(){
 
+        axios({
+            method: 'GET',
+            url: this.url,
+            params: {'word':this.search} 
+        }).then(function(res) {
+
+            $.each(res.data, function(key,element) {
+
+                this.search_result.push(element)                    
+            }.bind(this))
+
+            console.log(this.search_result)
+
+        }.bind(this)).catch(function(error){
+
+            console.log(error)
+        })
+    
+    },
+    watch: {
+        search: function(value) {
+            
+            this.search_result = []
+
+            axios({
+                method: 'GET',
+                url: this.url,
+                params: {'word':value} 
+            }).then(function(res) {
+    
+                $.each(res.data, function(key,element) {
+
+                    this.search_result.push(element)                    
+                }.bind(this))
+
+                console.log(this.search_result)
+
+            }.bind(this)).catch(function(error){
+
+                console.log(error)
+            })
+        }           
     },
     methods: {
-        addLabel: function() {
-            
-            this.label.push(this.input_label);
+        delete_search: function() {
+
+            this.search = ''
+        },
+        openModal: function() {
+
+            this.is_modal_open = !this.is_modal_open
         }
     }
 });

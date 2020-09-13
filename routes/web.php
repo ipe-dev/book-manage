@@ -29,6 +29,8 @@ Route::middleware([RequestMiddleware::class])->group(function() {
     Route::get('/book/login', 'BookController@getLogin')->middleware('auth');
 });
 
+Route::get('/book/ajax', 'BookController@ajax');
+
 Route::post('/book/create', 'BookController@create');
 
 Route::patch('/book/{book}', 'BookController@update');

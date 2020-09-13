@@ -49753,12 +49753,52 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app',
   data: {
-    input_label: '',
-    labels: ["a", "b"]
+    search: '',
+    search_result: [],
+    url: '/book/ajax',
+    is_modal_open: false
+  },
+  mounted: function mounted() {
+    axios({
+      method: 'GET',
+      url: this.url,
+      params: {
+        'word': this.search
+      }
+    }).then(function (res) {
+      $.each(res.data, function (key, element) {
+        this.search_result.push(element);
+      }.bind(this));
+      console.log(this.search_result);
+    }.bind(this))["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  watch: {
+    search: function search(value) {
+      this.search_result = [];
+      axios({
+        method: 'GET',
+        url: this.url,
+        params: {
+          'word': value
+        }
+      }).then(function (res) {
+        $.each(res.data, function (key, element) {
+          this.search_result.push(element);
+        }.bind(this));
+        console.log(this.search_result);
+      }.bind(this))["catch"](function (error) {
+        console.log(error);
+      });
+    }
   },
   methods: {
-    addLabel: function addLabel() {
-      this.label.push(this.input_label);
+    delete_search: function delete_search() {
+      this.search = '';
+    },
+    openModal: function openModal() {
+      this.is_modal_open = !this.is_modal_open;
     }
   }
 });

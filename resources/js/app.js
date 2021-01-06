@@ -45,7 +45,7 @@ const app = new Vue({
 
             $.each(res.data, function(key,element) {
 
-                this.search_result.push(element)                    
+                this.search_result.push(element)
             }.bind(this))
 
             console.log(this.search_result)

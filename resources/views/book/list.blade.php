@@ -1,4 +1,4 @@
-@extends('layouts/default')
+@extends('layouts.default')
 @section('title','書籍一覧')
 
 @section('content')
@@ -22,17 +22,26 @@
             </div>
         </div>
     </form>
-    {{-- @{{ $data }} --}}
-    <div v-for='book in search_result'>
-        <div @click='open_modal' style="margin:auto; width:50%;">
-            <div class="card" style="margin:15px;">
-                <div class="card-body">
-                    <h5 class="card-title">@{{ book.title }}</h5>
-                    <p class="card-text">@{{ book.memo }}</p>
-                </div>
-            </div>    
+    <div v-if="search_result != ''">
+        <div v-for='book in search_result'>
+            <div v-cloak style="margin:auto; width:50%;">
+                <div class="card" style="margin:15px;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a v-bind:href="'/book/edit/'+ book.id">
+                                @{{ book.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text">@{{ book.memo }}</p>
+                    </div>
+                </div>    
+            </div>
         </div>
     </div>
+    <div  style="text-align:center; padding:auto; margin-top:50px;" v-else>
+        検索結果はありません
+    </div>
+
     {{-- @foreach ($books as $book)
     <div style="margin:auto; width:50%;">
         <div class="card" style="margin:15px;">
